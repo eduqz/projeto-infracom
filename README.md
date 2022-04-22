@@ -14,8 +14,8 @@
 ***
 
 ### Entrega 2: Implementação de confiabilidade sobre o UDP utilizando RDT 3.0
-#### [Opcional] Rodando o interceptor
-> Se estiver executando, faz com que 20% dos pacotes sejam perdidos e outros 20% dos pacotes sejam corrompidos (mudando um bite da mensagem)
+#### Rodando o interceptor
+> Permite a demonstração do protocolo RDT, já que faz com que 20% dos pacotes sejam perdidos e outros 20% dos pacotes sejam corrompidos (mudando um bite da mensagem)
 1. Abra um terminal na pasta `delivery-2` do projeto (onde está o interceptor.py)
 2. Insira o comando `python3 interceptor.py`
 

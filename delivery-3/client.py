@@ -37,7 +37,7 @@ class Client:
             print(data.decode())
 
             if data == b'sair':
-                print('*** Client finalizado ***')
+                print('*** Cliente finalizado ***')
 
     # Method used to send the message to the server
     def send(self, message):

@@ -115,7 +115,7 @@ class Server:
             # Command to set the current user name
             elif self.history[-1] == 'name':
                 self.info['name'] = data.decode()
-                message += '' + OPTIONS
+                message += OPTIONS
                 self.history.append('options')
 
             # Command to show the menu, by stringfying the menu array
@@ -173,8 +173,12 @@ class Server:
                         str(order['item']['price']) + ',00 \n'
                     sum += order['item']['price']
 
+                if self.paid > 0:
+                    message += '\n\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\nValor pago - R$ ' + \
+                    str(self.paid) + ',00\n'
+                
                 message += '\n\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\nTotal da mesa - R$ ' + \
-                    str(sum) + ',00\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n'
+                    str(sum - self.paid) + ',00\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n'
 
                 message += '\n\n---\n' + OPTIONS
                 self.history.append('options')
@@ -212,9 +216,9 @@ class Server:
 
                 if pay > sum:
                     message += 'O valor é R$ ' + \
-                        str(sum - pay) + ',00 a mais que sua conta. O valor excedente será distribuído para outros clientes.'
+                        str(pay - sum) + ',00 a mais que sua conta. O valor excedente será distribuído para outros clientes.'
 
-                message += 'Pagamento confirmado!\n\n---\n' + OPTIONS
+                message += '\n\nPagamento confirmado!\n\n---\n' + OPTIONS
                 self.history.append('options')
 
             self.send(message.encode())
@@ -235,9 +239,9 @@ server = Server()
 server.start()
 
 while True:
-    cmd = input()
-    cmd = cmd.encode()
-    server.send(cmd)
+    recv_message = input()
+    recv_message = recv_message.encode()
+    server.send(recv_message)
 
-    if cmd == 'sair':
+    if recv_message == 'sair':
         break
